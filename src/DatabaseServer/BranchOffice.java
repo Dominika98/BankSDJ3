@@ -9,11 +9,14 @@ import utility.observer.AbstractRemoteSubject;
 
 import java.io.Serializable;
 
-public abstract class BranchOffice extends AbstractRemoteSubject<Integer> implements Remote {
-	public abstract boolean validate(double amount, int accountNo) throws RemoteException;
-	public abstract void withdrawMoney(double amount, int accountNo, ClientInterface c) throws RemoteException;
-	public abstract void responceClient(double amount) throws RemoteException;
-	public abstract void createAccount(int number, double money) throws RemoteException;
-	public abstract void receiveAccount(Account a) throws RemoteException;
-	public abstract void insertMoney(double amount, int accountNo, ClientInterface c) throws RemoteException;
+public interface BranchOffice extends  Remote {
+	public void responceClient(double amount) throws RemoteException;
+	public boolean validate(double amount, int accountNo) throws RemoteException;
+	public void withdrawMoney(double amount, int accountNo, ClientInterface c) throws RemoteException;
+	public void createAccount(int number, double money) throws RemoteException;
+	public void receiveAccount(Account a) throws RemoteException;
+	public void insertMoney(double amount, int accountNo, ClientInterface c) throws RemoteException;
+	public void addObserver(ClientInterface o) throws RemoteException;
+	public void deleteObserver(ClientInterface o) throws RemoteException;
+	public void notifyObserver(int num) throws RemoteException;
 }

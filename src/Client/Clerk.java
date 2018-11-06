@@ -14,7 +14,7 @@ import DatabaseServer.BranchOffice;
 import utility.observer.RemoteObserver;
 import utility.observer.RemoteSubject;
 
-public class Clerk implements ClientInterface, Serializable, RemoteObserver<Integer> {
+public class Clerk extends UnicastRemoteObject implements ClientInterface, Serializable {
 	
 	private int clientAccountNo;
 	private BranchOffice bank;
@@ -28,13 +28,16 @@ public class Clerk implements ClientInterface, Serializable, RemoteObserver<Inte
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		bank.addObserver(this);
 	}
 	
 	public void setAccountNo(int no)
 	{
 		clientAccountNo = no;
+	}
+	
+	public void addMe() throws RemoteException
+	{
+		bank.addObserver(this);
 	}
 	
 	public void withdrawMoney(double amount) throws RemoteException
@@ -49,6 +52,7 @@ public class Clerk implements ClientInterface, Serializable, RemoteObserver<Inte
 	
 	public static void main(String[] args) throws RemoteException {
 		Clerk c = new Clerk();
+		c.addMe();
 		Scanner keyboard = new Scanner(System.in);
 		while(true)
 		{
@@ -93,10 +97,10 @@ public class Clerk implements ClientInterface, Serializable, RemoteObserver<Inte
 		
 	}
 
-	public void update(RemoteSubject<Integer> subject, Integer updateMsg) throws RemoteException {
-		if(updateMsg == clientAccountNo)
+	public void update(String message, int num) throws RemoteException {
+		if(num == clientAccountNo)
 		{
-			System.out.println("Hello there :D");
+			System.out.println(message);
 		}
 		
 	}

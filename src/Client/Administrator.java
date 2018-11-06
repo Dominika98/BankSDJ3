@@ -50,4 +50,10 @@ public class Administrator extends UnicastRemoteObject implements ClientInterfac
 		}
 	}
 
+	@Override
+	public void update(String message, int num) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
